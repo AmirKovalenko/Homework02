@@ -23,18 +23,12 @@ public class WaterHazard : MonoBehaviour
         {
             if (playerController == null)
                 playerController = other.GetComponent<PlayerController>();
+
             Debug.Log(message:"entered water hazard!");
-            playerController.fallAnimation.Play();
             playerController.areControlsLocked = true;
             WaterEnteredEventArgs waterData = new WaterEnteredEventArgs(damage, playerController);
-            onCharacterEntered.Invoke(waterData);
+            onCharacterEntered?.Invoke(waterData);
 
-            if (playerController.fallAnimation.Play()) 
-            {
-                Debug.Log(message:"Recover animation");
-                playerController.fallRecoverAnimation.Play();
-                playerController.areControlsLocked = false;
-            }
         }
     }
 }

@@ -22,7 +22,7 @@ public class FireHazard : MonoBehaviour
         {
             Debug.Log(message: "entered fire hazard!");
             FireEnteredEventArgs fireData = new FireEnteredEventArgs(damage, other.GetComponent<PlayerController>());
-            onCharacterEntered.Invoke(fireData);
+            onCharacterEntered?.Invoke(fireData);
         }
     }
 }

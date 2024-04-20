@@ -6,6 +6,9 @@ TagManager:
   tags:
   - FireHazard
   - Water
+  - NPC
+  - Portal
+  - Trap
   layers:
   - Default
   - TransparentFX

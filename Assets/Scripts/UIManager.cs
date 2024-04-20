@@ -5,19 +5,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public int maxHP = 100;
-    public int currentHP;
-    public TextMeshProUGUI hpText;
+    [SerializeField] public TextMeshProUGUI hpText;
+    [SerializeField] private PlayerController playerHP;
 
     private void Start()
     {
-        currentHP = maxHP;
-
-    }
-
-    private void Update()
-    {
-        
+        hpText.text = playerHP.CurrentHP.ToString();
     }
 
 }

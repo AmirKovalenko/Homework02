@@ -9,9 +9,10 @@ public class NPCController : MonoBehaviour
     private const int mudAreaID = 3;
     private bool hasSpecialTevaNaot = true;
 
-    [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private Transform[] pathWaypoints;
-    private int currentWaypointIndex;
+    [SerializeField] public NavMeshAgent navMeshAgent;
+    [SerializeField] public Transform[] pathWaypoints;
+    [SerializeField] static private Transform target = null;
+    public int currentWaypointIndex;
 
     private void Start()
     {
@@ -20,9 +21,18 @@ public class NPCController : MonoBehaviour
         navMeshAgent.SetDestination(pathWaypoints[0].position);
     }
 
+    public static void SetTarget(Transform t)
+    {
+        target = t;
+    }
+
     private void Update()
     {
-        if (!navMeshAgent.isStopped && navMeshAgent.remainingDistance <= 0.1f)
+        if (target)
+        {
+            navMeshAgent.SetDestination(target.position);
+        }
+        else if (!navMeshAgent.isStopped && navMeshAgent.remainingDistance <= 0.1f)
         {
             currentWaypointIndex++;
             if (currentWaypointIndex >= pathWaypoints.Length)

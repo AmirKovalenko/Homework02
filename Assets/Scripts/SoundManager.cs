@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     private static string MUSIC_VOLUME_PARAMETER = "MusicVolume";
 
     [SerializeField] private AudioMixerGroup mainMixer;
-    [SerializeField] private AudioMixerGroup sfxMixer;
+    [SerializeField] private AudioMixerGroup SFXMixer;
     [SerializeField] private AudioMixerGroup musicMixer;
 
     public void MasterVolumeSliderChanged(float newValue)
@@ -18,14 +18,17 @@ public class SoundManager : MonoBehaviour
         float actualVolumeValue = (1 - newValue);
         mainMixer.audioMixer.SetFloat(MASTER_VOLUME_PARAMETER, newValue);
     }
+
     public void SFXVolumeSliderChanged(float newValue)
     {
         float actualVolumeValue = (1 - newValue);
-        sfxMixer.audioMixer.SetFloat(SFX_VOLUME_PARAMETER, newValue);
+        SFXMixer.audioMixer.SetFloat(SFX_VOLUME_PARAMETER, newValue);
     }
+
     public void MusicVolumeSliderChanged(float newValue)
     {
         float actualVolumeValue = (1 - newValue);
         musicMixer.audioMixer.SetFloat(MUSIC_VOLUME_PARAMETER, newValue);
     }
+
 }

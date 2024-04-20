@@ -228,11 +228,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 79398a8d8dfc79143bc32c545ffd55f6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 211849537855621464}
+      addedObject: {fileID: 9111724970222686803}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 79398a8d8dfc79143bc32c545ffd55f6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9111724970222686803}
+      addedObject: {fileID: 1784972563020662665}
   m_SourcePrefab: {fileID: 100100000, guid: 79398a8d8dfc79143bc32c545ffd55f6, type: 3}
 --- !u!1 &7386185494204628722 stripped
 GameObject:
@@ -309,30 +309,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &211849537855621464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7386185494204628722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e66074a3cc88242a0654c231e66225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 3
-  playerBody: {fileID: 3941652495923511607}
-  currentHP: 0
-  fireHazard: {fileID: 810284388973846887, guid: 6779f90ae5aad704dad66bfd9dd13072,
-    type: 3}
-  waterHazard: {fileID: 6870341107740245765, guid: f49db35c251c54245b60c9314e1c6efa,
-    type: 3}
-  fallAnimation: {fileID: 0}
-  fallRecoverAnimation: {fileID: 0}
-  isFalling: 0
-  areControlsLocked: 0
 --- !u!114 &9111724970222686803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +323,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   pathWaypoints: []
+--- !u!114 &1784972563020662665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386185494204628722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e66074a3cc88242a0654c231e66225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  jumpForce: 7
+  fireHazard: {fileID: 810284388973846887, guid: 6779f90ae5aad704dad66bfd9dd13072,
+    type: 3}
+  waterHazard: {fileID: 6870341107740245765, guid: f49db35c251c54245b60c9314e1c6efa,
+    type: 3}
+  playerBody: {fileID: 3941652495923511607}
+  currentHP: 0
+  soundMenu: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  uiManager: {fileID: 0}
+  trap: {fileID: 0}
+  npcController: {fileID: 0}
+  fallAnimation: {fileID: 0}
+  fallRecoverAnimation: {fileID: 0}
+  animator: {fileID: 0}
+  immuneTimer: 0
+  jumpCooldown: 0
+  areControlsLocked: 0
 --- !u!4 &7911364661638194248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 79398a8d8dfc79143bc32c545ffd55f6,

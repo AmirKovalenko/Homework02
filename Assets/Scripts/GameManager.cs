@@ -25,4 +25,5 @@ public class GameManager : MonoBehaviour
     {
         args.playerController.TakeDamage(args.damageDealt);
     }
+
 }
