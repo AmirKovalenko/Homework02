@@ -323,6 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   pathWaypoints: []
+  currentWaypointIndex: 0
 --- !u!114 &1784972563020662665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,13 +347,9 @@ MonoBehaviour:
   soundMenu: {fileID: 0}
   pauseMenu: {fileID: 0}
   uiManager: {fileID: 0}
-  trap: {fileID: 0}
-  npcController: {fileID: 0}
   fallAnimation: {fileID: 0}
   fallRecoverAnimation: {fileID: 0}
   animator: {fileID: 0}
-  immuneTimer: 0
-  jumpCooldown: 0
   areControlsLocked: 0
 --- !u!4 &7911364661638194248 stripped
 Transform:

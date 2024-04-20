@@ -7,6 +7,7 @@ public class WaterHazard : MonoBehaviour
 {
     [SerializeField] private uint Damage => damage;
     [SerializeField] private uint damage = 5;
+    [SerializeField] private AudioSource playerSlip;
 
     [SerializeField] private UnityEvent<WaterEnteredEventArgs> onCharacterEntered;
     public UnityAction<WaterEnteredEventArgs> onCharacterEnteredAction;
@@ -25,6 +26,7 @@ public class WaterHazard : MonoBehaviour
                 playerController = other.GetComponent<PlayerController>();
 
             Debug.Log(message:"entered water hazard!");
+            playerSlip.Play();
             playerController.areControlsLocked = true;
             WaterEnteredEventArgs waterData = new WaterEnteredEventArgs(damage, playerController);
             onCharacterEntered?.Invoke(waterData);

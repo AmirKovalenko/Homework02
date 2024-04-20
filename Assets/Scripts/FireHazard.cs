@@ -7,6 +7,7 @@ public class FireHazard : MonoBehaviour
 {
     [SerializeField] private uint Damage => damage;
     [SerializeField] private uint damage = 10;
+    [SerializeField] private AudioSource damageAudio;
 
     public UnityAction<FireEnteredEventArgs> onCharacterEnteredAction;
     [SerializeField] private UnityEvent<FireEnteredEventArgs> onCharacterEntered;
@@ -21,6 +22,7 @@ public class FireHazard : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log(message: "entered fire hazard!");
+            damageAudio.Play();
             FireEnteredEventArgs fireData = new FireEnteredEventArgs(damage, other.GetComponent<PlayerController>());
             onCharacterEntered?.Invoke(fireData);
         }

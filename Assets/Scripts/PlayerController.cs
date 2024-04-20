@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject soundMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioSource trapAudio;
+    [SerializeField] private AudioSource buttonPress;
 
     public Animation fallAnimation;
     public Animation fallRecoverAnimation;
@@ -52,8 +54,10 @@ public class PlayerController : MonoBehaviour
 
         if (!playerBody.IsDestroyed())
         {
+            
             if (!areControlsLocked)
             {
+                animator.speed = 0.85f;
                 float horizontalInput = Input.GetAxis("Horizontal");
                 float verticalInput = Input.GetAxis("Vertical");
 
@@ -107,6 +111,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Trap"))
         {
             NPCController.SetTarget(transform);
+            trapAudio.Play();
             Debug.Log("Trap Activated!");
         }
 
@@ -193,10 +198,12 @@ public class PlayerController : MonoBehaviour
     {
         soundMenu.SetActive(true);
         pauseMenu.SetActive(false);
+        buttonPress.Play();
     }
     public void SoundSettingsExit()
     {
         soundMenu.SetActive(false);
         pauseMenu.SetActive(true);
+        buttonPress.Play();
     }
 }

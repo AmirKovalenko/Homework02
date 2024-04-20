@@ -57,11 +57,8 @@ public class AmirSceneManager : MonoBehaviour
         {
             loadingBar.fillAmount = (asyncOperation.progress / 0.9f);
             loadingText.SetActive(true);
-            if (Input.anyKeyDown)
-            {
-                
+            if (Input.anyKeyDown)   
                 asyncOperation.allowSceneActivation = true;
-            }
         } 
     }
     public void Retry()
@@ -69,6 +66,7 @@ public class AmirSceneManager : MonoBehaviour
         asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
         asyncOperation.allowSceneActivation = false;
         Time.timeScale = 1;
+        loadingText.SetActive(false);
     }
     public void CreditsScene() 
     {
