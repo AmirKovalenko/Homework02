@@ -36,8 +36,6 @@ public class PlayerController : MonoBehaviour
     public AmirSceneManager nextScene;
     private NPCController npcController;
 
-
-
     public void Awake()
     {
         playerBody = GetComponent<Rigidbody>();
