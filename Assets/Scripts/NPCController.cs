@@ -26,6 +26,11 @@ public class NPCController : MonoBehaviour
         target = t;
     }
 
+    public void SetDestination()
+    {
+        navMeshAgent.SetDestination(pathWaypoints[currentWaypointIndex].position);
+    }
+
     private void Update()
     {
         if (target)

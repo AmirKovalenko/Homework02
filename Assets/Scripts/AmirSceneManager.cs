@@ -9,21 +9,24 @@ public class AmirSceneManager : MonoBehaviour
 {
     [SerializeField] private Image loadingBar;
     [SerializeField] private GameObject loadingText;
+    [SerializeField] private GameObject buttons;
     AsyncOperation asyncOperation;
-    private int sceneCounter = 1;
+    [SerializeField] public int sceneCounter = 0;
+
+    //bugs started to appear, ran out of time to fix it. scenes dont load in the right order
     public void WinScene()
     {
-        if (sceneCounter == 1) //wins in stage1
+        if (sceneCounter == 2) //wins in stage1
         {
-            sceneCounter = 4;  //advance to stage2
+            sceneCounter = 5;  //advance to stage2
             asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
             asyncOperation.allowSceneActivation = false;
         }
-        else if (sceneCounter == 4) //wins in stage2
+        else if (sceneCounter == 5) //wins in stage2
         {
-            sceneCounter = 5;
-            asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
-            asyncOperation.allowSceneActivation = false;
+            sceneCounter = 6;
+            //asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
+            //asyncOperation.allowSceneActivation = false;
             CreditsScene();
         }
 
@@ -32,18 +35,18 @@ public class AmirSceneManager : MonoBehaviour
     }
     public void LoseScene()
     {
-        if (sceneCounter == 1)  //loses in stage1
+        if (sceneCounter == 2)  //loses in stage1
         {
-            sceneCounter = 2; 
+            sceneCounter = 1; 
             asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
-            sceneCounter = 1;
+            sceneCounter = 2;
             asyncOperation.allowSceneActivation = false;
         }
-        else if (sceneCounter == 4)  //loses in stage2
+        else if (sceneCounter == 5)  //loses in stage2
         {
-            sceneCounter = 2;
+            sceneCounter = 1;
             asyncOperation = SceneManager.LoadSceneAsync(sceneCounter);
-            sceneCounter = 4;
+            sceneCounter = 7;
             asyncOperation.allowSceneActivation = false;
         }
 
@@ -56,6 +59,7 @@ public class AmirSceneManager : MonoBehaviour
         if (asyncOperation != null)
         {
             loadingBar.fillAmount = (asyncOperation.progress / 0.9f);
+            buttons.SetActive(false);
             loadingText.SetActive(true);
             if (Input.anyKeyDown)   
                 asyncOperation.allowSceneActivation = true;
@@ -70,13 +74,14 @@ public class AmirSceneManager : MonoBehaviour
     }
     public void CreditsScene() 
     {
-        sceneCounter = 5;
+        sceneCounter = 7;
         SceneManager.LoadSceneAsync(sceneCounter);
     }
     public void MainMenu()
     {
         sceneCounter = 0;
         SceneManager.LoadSceneAsync(sceneCounter);
+        sceneCounter = 2;
     }
     public void Exit()
     {

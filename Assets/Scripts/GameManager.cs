@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] public PlayerController playerController;
     [SerializeField] private FireHazard[] fireHazard;
     [SerializeField] private WaterHazard[] waterHazard;
-
+    [SerializeField] public NPCController indexCounter;
     private void Start()
     {
         foreach (FireHazard fireHazard in fireHazard)

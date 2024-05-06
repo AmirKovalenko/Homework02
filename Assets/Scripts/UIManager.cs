@@ -13,4 +13,10 @@ public class UIManager : MonoBehaviour
         hpText.text = playerHP.CurrentHP.ToString();
     }
 
+    public void RefreshHPText()
+    {
+        hpText.text = playerHP.CurrentHP.ToString();
+
+    }
+
 }

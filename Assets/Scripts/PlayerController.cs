@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(NPCController))]
 
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject fireHazard;
     [SerializeField] GameObject waterHazard;
     [SerializeField] private Rigidbody playerBody;
-    [SerializeField] private uint currentHP;
+    [SerializeField] public uint currentHP;
     [SerializeField] private GameObject soundMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private UIManager uiManager;
@@ -25,15 +26,17 @@ public class PlayerController : MonoBehaviour
     public bool areControlsLocked;
 
     public uint CurrentHP { get => currentHP; }
-    private AmirSceneManager nextScene;
-    private NPCController npcController;
+    private uint maxHP = 30;
     private float immuneTimer;
     private float jumpCooldown = 0;
     private float rotationSpeed = 180;
     private float deathTimer;
     private bool pauseCheck;
     private bool onGround;
-    private uint maxHP = 30;
+    public AmirSceneManager nextScene;
+    private NPCController npcController;
+
+
 
     public void Awake()
     {
@@ -52,9 +55,9 @@ public class PlayerController : MonoBehaviour
         if (jumpCooldown > 0)
             jumpCooldown -= Time.deltaTime;
 
+
         if (!playerBody.IsDestroyed())
         {
-            
             if (!areControlsLocked)
             {
                 animator.speed = 0.85f;
@@ -87,8 +90,16 @@ public class PlayerController : MonoBehaviour
                 deathTimer -= Time.deltaTime;
                 if (deathTimer <= 0)
                 {
-                    SceneManager.LoadSceneAsync("LoseScene");
-                    nextScene.LoseScene();
+                    if (nextScene.sceneCounter == 2)
+                    {
+                        SceneManager.LoadSceneAsync("LoseScene 1");
+                        nextScene.LoseScene();
+                    }
+                    else if (nextScene.sceneCounter == 5)
+                    {
+                        SceneManager.LoadSceneAsync("LoseScene 2");
+                        nextScene.LoseScene();
+                    }
                 }
             }
         }
@@ -96,19 +107,41 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Portal"))
+        if (other.gameObject.CompareTag("Portal"))   //moves to win scene
         {
-            SceneManager.LoadSceneAsync("WinScene");
-            nextScene.WinScene();
+            if (nextScene.sceneCounter == 2)
+            {
+                SceneManager.LoadSceneAsync("WinScene 1");
+                nextScene.WinScene();
+                nextScene.sceneCounter = 5;
+
+            }
+            else if (nextScene.sceneCounter == 5)
+            {
+                SceneManager.LoadSceneAsync("WinScene 2");
+                nextScene.WinScene();
+                nextScene.sceneCounter = 7;
+
+            }
         }
 
-        else if (other.gameObject.CompareTag("NPC"))
+        else if (other.gameObject.CompareTag("NPC"))  //moves to lose scene
         {
-            SceneManager.LoadSceneAsync("LoseScene");
-            nextScene.LoseScene();
+            if (nextScene.sceneCounter == 2)
+            {
+                SceneManager.LoadSceneAsync("LoseScene 1");
+                nextScene.LoseScene();
+                nextScene.sceneCounter = 2;
+            }
+            else if (nextScene.sceneCounter == 5)
+            {
+                SceneManager.LoadSceneAsync("LoseScene 2");
+                nextScene.LoseScene();
+                nextScene.sceneCounter = 5;
+            }
         }
 
-        else if (other.gameObject.CompareTag("Trap"))
+        else if (other.gameObject.CompareTag("Trap"))  //sets the NPC's to move to your direction
         {
             NPCController.SetTarget(transform);
             trapAudio.Play();
@@ -127,14 +160,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(FireEnteredEventArgs fireData)
-    {
-        currentHP -= fireData.damageDealt;
-        uiManager.hpText.text = currentHP.ToString();
-        if (currentHP <= 0)
-            playerBody.IsDestroyed();
-    }    
-
     public void TakeDamage(uint damage)
     {
         currentHP -= damage;
@@ -142,7 +167,13 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
             playerBody.IsDestroyed();
     }
-
+    public void TakeDamage(FireEnteredEventArgs fireData)
+    {
+        currentHP -= fireData.damageDealt;
+        uiManager.hpText.text = currentHP.ToString();
+        if (currentHP <= 0)
+            playerBody.IsDestroyed();
+    }    
     public void WaterEnter(WaterEnteredEventArgs waterData)
     {
         currentHP -= waterData.damageDealt;
@@ -150,7 +181,6 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
             playerBody.IsDestroyed();
     }
-
     public void BeginRecover()
     {
         animator.SetTrigger("IsRecovering");
@@ -176,7 +206,6 @@ public class PlayerController : MonoBehaviour
             if (jumpCooldown <= 0)
                 onGround = true;
     }
-
     public void PauseMenu()
     {
         if (!pauseCheck)
@@ -206,4 +235,8 @@ public class PlayerController : MonoBehaviour
         pauseMenu.SetActive(true);
         buttonPress.Play();
     }
+
+    
 }
+
+

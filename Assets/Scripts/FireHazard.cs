@@ -25,6 +25,7 @@ public class FireHazard : MonoBehaviour
             damageAudio.Play();
             FireEnteredEventArgs fireData = new FireEnteredEventArgs(damage, other.GetComponent<PlayerController>());
             onCharacterEntered?.Invoke(fireData);
+
         }
     }
 }
